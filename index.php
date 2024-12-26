@@ -29,16 +29,16 @@ $TotalBuku = mysqli_num_rows($ResultBooks);
         ?>
 
         <!-- HERO SECTION START -->
-        <section class="container mt-3">
-            <h2 class="text-center display-3">Perpustakaan</h2>
-        </section>
+        <?php
+        include "layouts/hero-section.php";
+        ?>
         <!-- HERO SECTION END -->
 
         <!-- ACTION BAR START -->
         <section class="container mt-5">
             <div class="row justify-content-around g-3">
                 <div class="col-sm-12 col-md-7 order-sm-1 order-md-0 ">
-                    <button class="btn btn-primary">+ Tambah</button>
+                    <a href="tambah.php" class="btn btn-primary">+ Tambah</a>
                 </div>
                 <div class="col-sm-12 col-md-5 order-sm-0 order-md-1">
                     <form class="d-flex" role="search" method="post">
