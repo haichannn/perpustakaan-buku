@@ -1,3 +1,15 @@
+<?php
+
+
+require_once "./model/getBooks.php";
+
+$ResultBooks = GetAllBooks();
+$TotalBuku = mysqli_num_rows($ResultBooks);
+
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -54,60 +66,31 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>Informatika XI</td>
-                        <td>Komputer</td>
-                        <td>81</td>
-                        <td>123-312-43-1331-1</td>
-                        <td>@Wildan Aprizal Arifin</td>
-                        <td>
-                            <div class="row justify-content-start">
-                                <div class="col-sm-auto">
-                                    <button class="btn btn-warning">Edit</button>
+                    <?php $idAwal = 1 ?>
+                    <?php while ($data = mysqli_fetch_assoc($ResultBooks)) : ?>
+
+                        <tr>
+                            <th scope="row"><?= $idAwal ?></th>
+                            <td><?= $data["judul"] ?></td>
+                            <td><?= $data["kategori"] ?></td>
+                            <td><?= $data["rating"] ?></td>
+                            <td><?= $data["isbn"] ?></td>
+                            <td><?= $data["penulis"] ?></td>
+                            <td>
+                                <div class="row justify-content-start">
+                                    <div class="col-sm-auto">
+                                        <button class="btn btn-warning">Edit</button>
+                                    </div>
+                                    <div class="col-sm-auto">
+                                        <a href="delete.php?id=1" class="btn btn-danger">Hapus</a>
+                                    </div>
                                 </div>
-                                <div class="col-sm-auto">
-                                    <a href="delete.php?id=1" class="btn btn-danger">Hapus</a>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>Jadi Mahasiswa Kaya kenapa tidak</td>
-                        <td>school</td>
-                        <td>90</td>
-                        <td>123-112-1234-43-1</td>
-                        <td>H. Heppy Trenggono</td>
-                        <td>
-                            <div class="row justify-content-start">
-                                <div class="col-sm-auto">
-                                    <button class="btn btn-warning">Edit</button>
-                                </div>
-                                <div class="col-sm-auto">
-                                    <a href="delete.php?id=1" class="btn btn-danger">Hapus</a>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row">3</th>
-                        <td>Sehat & Cerdas Untuk Remaja</td>
-                        <td>psikologis</td>
-                        <td>85</td>
-                        <td>975-141-1431-13-1</td>
-                        <td>Yohanes Sunardi</td>
-                        <td>
-                            <div class="row justify-content-start">
-                                <div class="col-sm-auto">
-                                    <button class="btn btn-warning">Edit</button>
-                                </div>
-                                <div class="col-sm-auto">
-                                    <a href="delete.php?id=1" class="btn btn-danger">Hapus</a>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
+                            </td>
+                        </tr>
+
+                        <?php $idAwal++ ?>
+
+                    <?php endwhile ?>
                 </tbody>
             </table>
         </section>
@@ -116,7 +99,7 @@
 
         <!-- DESCRIPTIONS TABLE START -->
         <section class="container">
-            <p class="text-lead text-primary">Jumlah Total Buku: 3</p>
+            <p class="text-lead text-primary">Jumlah Total Buku: <?= $TotalBuku ?></p>
         </section>
         <!-- DESCRIPTIONS TABLE END  -->
 
