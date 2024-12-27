@@ -1,3 +1,33 @@
+<?php
+
+// import insertBooks 
+require_once "model/insertBooks.php";
+require_once "util/parserInt.php";
+
+// jika tombol tambah di tekan 
+if (isset($_POST["tombol-tambah"])) {
+    $judulBook = htmlspecialchars($_POST["judul"]);
+    $kategoriBook = htmlspecialchars($_POST["kategori"]);
+    $ratingBook = htmlspecialchars($_POST["rating"]);
+    $isbnBook = htmlspecialchars($_POST["isbn"]);
+    $penulisBook = htmlspecialchars($_POST["penulis"]);
+
+    // validasi field forms
+    // CODE ..
+
+    $resultRatingParse = ParseStrToInt($ratingBook);
+    $resultInsertBook = InsertBook($judulBook, $kategoriBook, $resultRatingParse, $isbnBook, $penulisBook);
+
+    // jika InsertBook Gagal Disimpan 
+    if ($resultInsertBook == 0) {
+        echo "<script> alert('Buku Gagal Di simpan !') </script>";
+    } else {
+        echo "<script> alert('Buku Berhasil Di Simpan !') </script>";
+    }
+}
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -24,11 +54,11 @@
             ?>
             <!-- HERO SECTION END -->
 
-            
+
             <!-- TAMBAH BUKU START -->
             <section class="container mt-5">
                 <div class="row justify-content-center ">
-                    <form class="col-sm-12 col-md-10 col-lg-6 border border-dark-subtle rounded p-4" method="post">
+                    <form class="col-sm-12 col-md-10 col-lg-6 border border-dark-subtle rounded p-4" method="post" action="">
 
                         <div class="mb-5">
                             <h2 class="fs-2 fw-normal">Tambah Buku</h2>
