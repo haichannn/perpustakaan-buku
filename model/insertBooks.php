@@ -22,7 +22,7 @@ function InsertBook($judul, $kategori, $rating, $isbn, $penulis)
     global $koneksiDB;
 
     // cek ISBN apakah sudah di daftar kan 
-    $sqlCheckIsbn = "SELECT * FROM tb_books WHERE isbn = $isbn";
+    $sqlCheckIsbn = "SELECT * FROM tb_books WHERE isbn = '$isbn'";
 
     $resultCheck = mysqli_query($koneksiDB, $sqlCheckIsbn);
     $jumlahRowIsbn = mysqli_num_rows($resultCheck);
