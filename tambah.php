@@ -3,6 +3,7 @@
 // import insertBooks 
 require_once "model/insertBooks.php";
 require_once "util/parserInt.php";
+require_once "validation/validationForm.php";
 
 // jika tombol tambah di tekan 
 if (isset($_POST["tombol-tambah"])) {
@@ -12,17 +13,22 @@ if (isset($_POST["tombol-tambah"])) {
     $isbnBook = htmlspecialchars($_POST["isbn"]);
     $penulisBook = htmlspecialchars($_POST["penulis"]);
 
-    // validasi field forms
-    // CODE ..
-
     $resultRatingParse = ParseStrToInt($ratingBook);
-    $resultInsertBook = InsertBook($judulBook, $kategoriBook, $resultRatingParse, $isbnBook, $penulisBook);
 
-    // jika InsertBook Gagal Disimpan 
-    if ($resultInsertBook == 0) {
-        echo "<script> alert('Buku Gagal Di simpan !') </script>";
-    } else {
-        echo "<script> alert('Buku Berhasil Di Simpan !') </script>";
+    // validasi field forms tambah
+    $validationForm = new ValidationForms($judulBook, $kategoriBook, $resultRatingParse, $isbnBook, $penulisBook);
+    $validation = $validationForm->ValidationTambah();
+
+    // jika form tidak ada error
+    if (count($validation) == 0) {
+        $resultInsertBook = InsertBook($judulBook, $kategoriBook, $resultRatingParse, $isbnBook, $penulisBook);
+
+        // jika InsertBook Gagal Disimpan 
+        if ($resultInsertBook == 0) {
+            echo "<script> alert('Buku Gagal Di simpan !') </script>";
+        } else {
+            echo "<script> alert('Buku Berhasil Di Simpan !') </script>";
+        }
     }
 }
 ?>
@@ -65,37 +71,42 @@ if (isset($_POST["tombol-tambah"])) {
                         </div>
 
                         <div class="row mb-3">
+                            <p class="text-danger mt-2"><?= isset($validation["judul"]) ? $validation["judul"] : null  ?></p>
                             <label for="inputJudulBuku" class="col-sm-2 col-form-label">Judul Buku</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" id="inputJudulBuku" name="judul" maxlength="50" minlength="5" required />
+                                <input type="text" class="form-control" id="inputJudulBuku" name="judul" maxlength="50" minlength="5" />
                             </div>
                         </div>
 
                         <div class="row mb-3">
+                            <p class="text-danger mt-2"><?= isset($validation["kategori"]) ? $validation["kategori"] : null  ?></p>
                             <label for="inputKategori" class="col-sm-2 col-form-label">Kategori</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" id="inputKategori" name="kategori" maxlength="50" minlength="5" required />
+                                <input type="text" class="form-control" id="inputKategori" name="kategori" maxlength="50" minlength="5" />
                             </div>
                         </div>
 
                         <div class="row mb-3">
+                            <p class="text-danger mt-2"><?= isset($validation["rating"]) ? $validation["rating"] : null  ?></p>
                             <label for="inputRating" class="col-sm-2 col-form-label">Rating</label>
                             <div class="col-sm-10">
-                                <input type="number" name="rating" inputmode="numeric" min="1" max="100" style="appearance: none; -moz-appearance: none; -webkit-appearance: none;" pattern="[0-9]*" class="form-control" id="inputRating" required />
+                                <input class="form-control" type="number" name="rating" inputmode="numeric" min="1" />
                             </div>
                         </div>
 
                         <div class="row mb-3">
+                            <p class="text-danger mt-2"><?= isset($validation["isbn"]) ? $validation["isbn"] : null  ?></p>
                             <label for="inputIsbn" class="col-sm-2 col-form-label">isbn</label>
                             <div class="col-sm-10">
-                                <input type="text" name="isbn" class="form-control" id="inputIsbn" minlength="13" maxlength="13" required />
+                                <input type="text" name="isbn" class="form-control" id="inputIsbn" />
                             </div>
                         </div>
 
                         <div class="row mb-3">
+                            <p class="text-danger mt-2"><?= isset($validation["penulis"]) ? $validation["penulis"] : null  ?></p>
                             <label for="inputPenulis" class="col-sm-2 col-form-label">Penulis</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" id="inputPenulis" name="penulis" maxlength="100" required />
+                                <input type="text" class="form-control" id="inputPenulis" name="penulis" maxlength="100" />
                             </div>
                         </div>
 
