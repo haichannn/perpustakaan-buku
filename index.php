@@ -82,7 +82,7 @@ $TotalBuku = mysqli_num_rows($ResultBooks);
                                         <button class="btn btn-warning">Edit</button>
                                     </div>
                                     <div class="col-sm-auto">
-                                        <a href="delete.php?id=<?= $data["id"] ?>" class="btn btn-danger">Hapus</a>
+                                        <a href="hapus.php?id=<?= $data["id"] ?>" class="btn btn-danger">Hapus</a>
                                     </div>
                                 </div>
                             </td>
