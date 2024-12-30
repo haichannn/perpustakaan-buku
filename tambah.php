@@ -25,9 +25,19 @@ if (isset($_POST["tombol-tambah"])) {
 
         // jika InsertBook Gagal Disimpan 
         if ($resultInsertBook == 0) {
-            echo "<script> alert('Buku Gagal Di simpan !') </script>";
+            echo'
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        Buku Gagal disimpan
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>           
+                ';
         } else {
-            echo "<script> alert('Buku Berhasil Di Simpan !') </script>";
+            echo'
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        Buku Berhasil Disimpan
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                ';
         }
     }
 }
