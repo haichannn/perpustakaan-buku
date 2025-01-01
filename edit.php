@@ -4,6 +4,7 @@ require_once "model/getBooks.php";
 require_once "model/updateBooks.php";
 require_once "validation/validationForm.php";
 require_once "util/parserInt.php";
+require_once "util/alert.php";
 
 
 // ambil id di param
@@ -53,14 +54,9 @@ if (isset($_POST["tombol-edit"])) {
 
         // jika update buku berhasil 
         if ($resultUpdateBook == 1) {
-            echo '
-                    <div class="alert alert-success alert-dismissible fade show" role="alert">
-                        Buku berhasil di edit
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    </div>
-                ';
+            echo Alert("Buku berhasil di edit", true);
 
-            echo "
+            echo"
                     <script>
                         setTimeout(() => {
                             document.location.href = 'edit.php?id=$idBuku';
@@ -69,12 +65,7 @@ if (isset($_POST["tombol-edit"])) {
                 ";
             
         } else {
-            echo '
-                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                        Buku gagal di edit
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    </div>
-                ';
+            echo Alert("Buku gagal di edit", false);
         }
     }
 }

@@ -2,6 +2,7 @@
 
 // import koneksi DB
 require_once "./db/koneksi.php";
+require_once "./util/alert.php";
 
 /**
  * undocumented function summary
@@ -29,12 +30,7 @@ function InsertBook($judul, $kategori, $rating, $isbn, $penulis)
 
     if ($jumlahRowIsbn > 0) {
         $ambilJudulBuku = mysqli_fetch_assoc($resultCheck)["judul"];
-        echo "
-                <div class='alert alert-danger alert-dismissible fade show' role='alert'>
-                    ISBN sudah terdaftar, oleh buku: '$ambilJudulBuku'
-                    <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
-                </div>
-            ";
+        echo Alert("ISBN sudah terdaftar, oleh buku: $ambilJudulBuku", false);
         
         return false;
     }

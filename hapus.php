@@ -3,6 +3,7 @@
 require_once "model/deleteBooks.php";
 require_once "model/getBooks.php";
 require_once "./util/parserInt.php";
+require_once "./util/alert.php";
 
 $idBukuRaw = (isset($_GET["id"])) ? htmlspecialchars($_GET["id"]) : null;
 
@@ -28,14 +29,8 @@ if (isset($_POST["tombol-hapus"])) {
     $resultDelete = DeleteBook($idBuku);
 
     if ($resultDelete > 0) {
-        echo "
-                <div class='alert alert-success alert-dismissible fade show' role='alert'>
-                    Data Buku Berhasil di hapus
-                    <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
-                </div>
-            ";
-
-        echo "
+        echo Alert("Data Buku Berhasil di hapus", true);
+        echo"
                 <script> 
                     setTimeout(() => {
                         document.location.href = 'index.php';
@@ -43,12 +38,7 @@ if (isset($_POST["tombol-hapus"])) {
                 </script>
             ";
     } else {
-        echo " 
-                <div class='alert alert-danger alert-dismissible fade show' role='alert'>
-                    Buku tidak ditemukan, gagal dihapus
-                    <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
-                </div>
-            ";
+        echo Alert("Buku tidak ditemukan, gagal dihapus", false);
     }
 }
 

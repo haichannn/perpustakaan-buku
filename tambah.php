@@ -3,6 +3,7 @@
 // import insertBooks 
 require_once "model/insertBooks.php";
 require_once "util/parserInt.php";
+require_once "util/alert.php";
 require_once "validation/validationForm.php";
 
 // jika tombol tambah di tekan 
@@ -25,22 +26,13 @@ if (isset($_POST["tombol-tambah"])) {
 
         // jika InsertBook Gagal Disimpan 
         if ($resultInsertBook == 0) {
-            echo'
-                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                        Buku Gagal disimpan
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    </div>           
-                ';
+            echo Alert("Buku gagal disimpan", false);
         } else {
-            echo'
-                    <div class="alert alert-success alert-dismissible fade show" role="alert">
-                        Buku Berhasil Disimpan
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    </div>
-                ';
+            echo Alert("Buku berhasil disimpan", true);
         }
     }
 }
+
 ?>
 
 
