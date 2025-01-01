@@ -1,7 +1,7 @@
 <?php
 
 /**
- * This class for validation form such: tambah buku.
+ * This class for validation form such: tambah buku, edit buku.
  */
 
 
@@ -23,27 +23,27 @@ class ValidationForms
         $this->penulis = $penulis;
     }
 
-    function ValidationTambah(): array
+    function Validation(): array
     {
         $errors = [];
 
-        if (empty(trim($this->judul))) {
+        if (empty($this->judul)) {
             $errors["judul"] = "*Judul dibutuhkan";
         }
-        if (empty(trim($this->kategori))) {
+        if (empty($this->kategori)) {
             $errors["kategori"] = "*Kategori dibutuhkan";
         }
-        if (empty(trim($this->rating))) {
+        if (empty($this->rating)) {
             $errors["rating"] = "*Rating dibutuhkan";
         } else if ($this->rating > 101) {
             $errors["rating"] = "*Rating rentang antara 1-100";
         }
 
-        if (empty(trim($this->isbn)) || !preg_match('/^\d{13}$/', $this->isbn)) {
+        if (empty($this->isbn) || !preg_match('/^\d{13}$/', $this->isbn)) {
             $errors["isbn"] = "*Isbn dibutuhkan dan berupa angka 13 digit";
         }
 
-        if (empty(trim($this->penulis))) {
+        if (empty($this->penulis)) {
             $errors["penulis"] = "*Penulis dibutuhkan";
         }
 

@@ -79,7 +79,7 @@ $TotalBuku = mysqli_num_rows($ResultBooks);
                             <td>
                                 <div class="row justify-content-start">
                                     <div class="col-sm-auto">
-                                        <button class="btn btn-warning">Edit</button>
+                                        <a href="edit.php?id=<?= $data["id"] ?>" class="btn btn-warning">Edit</a>
                                     </div>
                                     <div class="col-sm-auto">
                                         <a href="hapus.php?id=<?= $data["id"] ?>" class="btn btn-danger">Hapus</a>

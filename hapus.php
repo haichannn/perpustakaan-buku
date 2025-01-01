@@ -19,7 +19,7 @@ if ($idBuku == 0) {
     return false;
 }
 
-// Cari judul buku berdasarkan id
+// Cari buku berdasarkan id
 $resultGetBook = GetBookById($idBuku);
 
 
