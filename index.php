@@ -2,10 +2,20 @@
 
 
 require_once "./model/getBooks.php";
+require_once "./helper/search.php";
+require_once "./util/alert.php";
+require_once "./helper/inputSanitizer.php";
 
 $ResultBooks = GetAllBooks();
-$TotalBuku = mysqli_num_rows($ResultBooks);
 
+
+// Jika tombol cari ditekan 
+if (isset($_POST["tombol-cari"])) {
+    $cariBuku = InputSanitize($_POST)["input-cari-buku"];
+    $ResultBooks = SearchHelper($cariBuku);
+}
+
+$TotalBuku = (isset($ResultBooks)) ? mysqli_num_rows($ResultBooks) : 0;
 
 ?>
 
@@ -42,8 +52,8 @@ $TotalBuku = mysqli_num_rows($ResultBooks);
                 </div>
                 <div class="col-sm-12 col-md-5 order-sm-0 order-md-1">
                     <form class="d-flex" role="search" method="post">
-                        <input class="form-control me-2" type="search" placeholder="Cari Buku.." aria-label="Search">
-                        <button class="btn btn-primary" type="submit">Cari</button>
+                        <input class="form-control me-2" type="search" placeholder="Cari buku, isbn atau penulis ?" aria-label="Search" name="input-cari-buku">
+                        <button class="btn btn-primary" type="submit" name="tombol-cari">Cari</button>
                     </form>
                 </div>
             </div>
@@ -66,31 +76,40 @@ $TotalBuku = mysqli_num_rows($ResultBooks);
                     </tr>
                 </thead>
                 <tbody>
-                    <?php $idAwal = 1 ?>
-                    <?php while ($data = mysqli_fetch_assoc($ResultBooks)) : ?>
+                    <!-- Jika data nya ada dan tidak null -->
+                    <?php if (isset($ResultBooks)) : ?>
 
-                        <tr>
-                            <th scope="row"><?= $idAwal ?></th>
-                            <td><?= $data["judul"] ?></td>
-                            <td><?= $data["kategori"] ?></td>
-                            <td><?= $data["rating"] ?></td>
-                            <td><?= $data["isbn"] ?></td>
-                            <td><?= $data["penulis"] ?></td>
-                            <td>
-                                <div class="row justify-content-start">
-                                    <div class="col-sm-auto">
-                                        <a href="edit.php?id=<?= $data["id"] ?>" class="btn btn-warning">Edit</a>
+                        <?php $idAwal = 1 ?>
+                        <?php while ($data = mysqli_fetch_assoc($ResultBooks)) : ?>
+
+                            <tr>
+                                <th scope="row"><?= $idAwal ?></th>
+                                <td><?= $data["judul"] ?></td>
+                                <td><?= $data["kategori"] ?></td>
+                                <td><?= $data["rating"] ?></td>
+                                <td><?= $data["isbn"] ?></td>
+                                <td><?= $data["penulis"] ?></td>
+                                <td>
+                                    <div class="row justify-content-start">
+                                        <div class="col-sm-auto">
+                                            <a href="edit.php?id=<?= $data["id"] ?>" class="btn btn-warning">Edit</a>
+                                        </div>
+                                        <div class="col-sm-auto">
+                                            <a href="hapus.php?id=<?= $data["id"] ?>" class="btn btn-danger">Hapus</a>
+                                        </div>
                                     </div>
-                                    <div class="col-sm-auto">
-                                        <a href="hapus.php?id=<?= $data["id"] ?>" class="btn btn-danger">Hapus</a>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
+                                </td>
+                            </tr>
 
-                        <?php $idAwal++ ?>
+                            <?php $idAwal++ ?>
+                        <?php endwhile ?>
 
-                    <?php endwhile ?>
+                    <?php else : ?>
+
+                        <?= Alert("Buku tidak ditemukan", false) ?>
+
+                    <?php endif ?>
+
                 </tbody>
             </table>
         </section>

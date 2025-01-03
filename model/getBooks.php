@@ -14,10 +14,9 @@ function GetAllBooks()
 {
     global $koneksiDB;
     $sqlGetAllBooks = 'SELECT * FROM tb_books';
-    $result = mysqli_query($koneksiDB, $sqlGetAllBooks);
-    mysqli_close($koneksiDB);
+    $resultBooks = mysqli_query($koneksiDB, $sqlGetAllBooks);
 
-    return $result;
+    return $resultBooks;
 }
 
 
@@ -25,8 +24,8 @@ function GetBookById(int $idBook)
 {
     global $koneksiDB;
     $sqlGetBookById = "SELECT * FROM tb_books WHERE id = $idBook";
-    $resultSqlGet = mysqli_query($koneksiDB, $sqlGetBookById);
-    $resultBook = mysqli_fetch_assoc($resultSqlGet);
+    $resultSqlGetById = mysqli_query($koneksiDB, $sqlGetBookById);
+    $resultBook = mysqli_fetch_assoc($resultSqlGetById);
 
     return $resultBook;
  }
