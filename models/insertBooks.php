@@ -2,7 +2,7 @@
 
 // import koneksi DB
 require_once "./db/koneksi.php";
-require_once "./util/alert.php";
+require_once "./utils/alert.php";
 
 /**
  * undocumented function summary

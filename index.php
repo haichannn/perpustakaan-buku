@@ -1,10 +1,9 @@
 <?php
 
-
-require_once "./model/getBooks.php";
-require_once "./helper/search.php";
-require_once "./util/alert.php";
-require_once "./helper/inputSanitizer.php";
+require_once "models/getBooks.php";
+require_once "utils/alert.php";
+require_once "helpers/inputSanitizer.php";
+require_once "helpers/search.php";
 
 $ResultBooks = GetAllBooks();
 

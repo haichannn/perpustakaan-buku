@@ -1,6 +1,6 @@
 <?php
 
-include_once "./model/searchBooks.php";
+include_once "./models/searchBooks.php";
 
 
 function SearchHelper($keywordSearch)

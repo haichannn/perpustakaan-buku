@@ -1,11 +1,12 @@
 <?php
 
-require_once "model/deleteBooks.php";
-require_once "model/getBooks.php";
-require_once "./util/parserInt.php";
-require_once "./util/alert.php";
+require_once "models/deleteBooks.php";
+require_once "models/getBooks.php";
+require_once "utils/parserInt.php";
+require_once "utils/alert.php";
+require_once "helpers/inputSanitizer.php";
 
-$idBukuRaw = (isset($_GET["id"])) ? htmlspecialchars($_GET["id"]) : null;
+$idBukuRaw = (isset($_GET["id"])) ? InputSanitize($_GET)["id"] : null;
 
 if (is_null($idBukuRaw)) {
     header("Location: index.php");
@@ -30,13 +31,13 @@ if (isset($_POST["tombol-hapus"])) {
 
     if ($resultDelete > 0) {
         echo Alert("Data Buku Berhasil di hapus", true);
-        echo"
+        echo "
                 <script> 
                     setTimeout(() => {
                         document.location.href = 'index.php';
                     }, 700);
                 </script>
-            ";
+             ";
     } else {
         echo Alert("Buku tidak ditemukan, gagal dihapus", false);
     }

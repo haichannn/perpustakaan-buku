@@ -1,10 +1,11 @@
 <?php
 
-require_once "model/getBooks.php";
-require_once "model/updateBooks.php";
-require_once "validation/validationForm.php";
-require_once "util/parserInt.php";
-require_once "util/alert.php";
+require_once "models/getBooks.php";
+require_once "models/updateBooks.php";
+require_once "validations/validationForm.php";
+require_once "utils/parserInt.php";
+require_once "utils/alert.php";
+require_once "helpers/inputSanitizer.php";
 
 
 // ambil id di param
@@ -35,11 +36,13 @@ if (is_null($resultGetBook)) {
 
 // jika tombol edit di tekan
 if (isset($_POST["tombol-edit"])) {
-    $judulBook = trim(htmlspecialchars($_POST["judul"]));
-    $kategoriBook = trim(htmlspecialchars($_POST["kategori"]));
-    $ratingBook = trim(htmlspecialchars($_POST["rating"]));
-    $isbnBook = trim(htmlspecialchars($_POST["isbn"]));
-    $penulisBook = trim(htmlspecialchars($_POST["penulis"]));
+    $resultSanitizerInput = InputSanitize($_POST);
+
+    $judulBook = $resultSanitizerInput["judul"];
+    $kategoriBook = $resultSanitizerInput["kategori"];
+    $ratingBook = $resultSanitizerInput["rating"];
+    $isbnBook = $resultSanitizerInput["isbn"];
+    $penulisBook = $resultSanitizerInput["penulis"];
 
     $resultRatingParse = ParseStrToInt($ratingBook);
 
@@ -56,14 +59,15 @@ if (isset($_POST["tombol-edit"])) {
         if ($resultUpdateBook == 1) {
             echo Alert("Buku berhasil di edit", true);
 
-            echo"
+            echo "
                     <script>
                         setTimeout(() => {
                             document.location.href = 'edit.php?id=$idBuku';
                         }, 1200);
                     </script>
-                ";
-            
+                 ";
+        } else if ($resultUpdateBook == 0) {
+            echo Alert("Tidak ada perubahan di buku", true);
         } else {
             echo Alert("Buku gagal di edit", false);
         }

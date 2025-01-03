@@ -1,18 +1,20 @@
 <?php
 
-// import insertBooks 
-require_once "model/insertBooks.php";
-require_once "util/parserInt.php";
-require_once "util/alert.php";
-require_once "validation/validationForm.php";
+require_once "models/insertBooks.php";
+require_once "utils/parserInt.php";
+require_once "utils/alert.php";
+require_once "validations/validationForm.php";
+require_once "helpers/inputSanitizer.php";
 
 // jika tombol tambah di tekan 
 if (isset($_POST["tombol-tambah"])) {
-    $judulBook = trim(htmlspecialchars($_POST["judul"]));
-    $kategoriBook = trim(htmlspecialchars($_POST["kategori"]));
-    $ratingBook = trim(htmlspecialchars($_POST["rating"]));
-    $isbnBook = trim(htmlspecialchars($_POST["isbn"]));
-    $penulisBook = trim(htmlspecialchars($_POST["penulis"]));
+    $resultSanitizerInput = InputSanitize($_POST);
+
+    $judulBook = $resultSanitizerInput["judul"];
+    $kategoriBook = $resultSanitizerInput["kategori"];
+    $ratingBook = $resultSanitizerInput["rating"];
+    $isbnBook = $resultSanitizerInput["isbn"];
+    $penulisBook = $resultSanitizerInput["penulis"];
 
     $resultRatingParse = ParseStrToInt($ratingBook);
 
