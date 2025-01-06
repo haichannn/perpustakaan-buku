@@ -44,7 +44,7 @@ $TotalBuku = (isset($ResultBooks)) ? mysqli_num_rows($ResultBooks) : 0;
         <!-- HERO SECTION END -->
 
         <!-- ACTION BAR START -->
-        <section class="container mt-5">
+        <section class="container-fluid-sm container-lg mt-5">
             <div class="row justify-content-around g-3">
                 <div class="col-sm-12 col-md-7 order-sm-1 order-md-0 ">
                     <a href="tambah.php" class="btn btn-primary">+ Tambah</a>
@@ -52,7 +52,7 @@ $TotalBuku = (isset($ResultBooks)) ? mysqli_num_rows($ResultBooks) : 0;
                 <div class="col-sm-12 col-md-5 order-sm-0 order-md-1">
                     <form class="d-flex" role="search" method="post">
                         <input class="form-control me-2" type="search" placeholder="Cari buku, isbn atau penulis ?" aria-label="Search" name="input-cari-buku">
-                        <button class="btn btn-primary" type="submit" name="tombol-cari">Cari</button>
+                        <button class="btn btn-outline-primary" type="submit" name="tombol-cari">Cari</button>
                     </form>
                 </div>
             </div>
@@ -61,62 +61,64 @@ $TotalBuku = (isset($ResultBooks)) ? mysqli_num_rows($ResultBooks) : 0;
 
 
         <!-- LIST BUKU START -->
-        <section class="container mt-5">
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th scope="col">No</th>
-                        <th scope="col">Judul</th>
-                        <th scope="col">Kategori</th>
-                        <th scope="col">Rating</th>
-                        <th scope="col">Isbn</th>
-                        <th scope="col">Penulis</th>
-                        <th scope="col">Aksi</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Jika data nya ada dan tidak null -->
-                    <?php if (isset($ResultBooks)) : ?>
+        <section class="container-fluid-sm container-lg mt-5">
+            <div class="table-responsive w-100">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">No</th>
+                            <th scope="col">Judul</th>
+                            <th scope="col">Kategori</th>
+                            <th scope="col">Rating</th>
+                            <th scope="col">Isbn</th>
+                            <th scope="col">Penulis</th>
+                            <th scope="col">Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Jika data nya ada dan tidak null -->
+                        <?php if (isset($ResultBooks)) : ?>
 
-                        <?php $idAwal = 1 ?>
-                        <?php while ($data = mysqli_fetch_assoc($ResultBooks)) : ?>
+                            <?php $idAwal = 1 ?>
+                            <?php while ($data = mysqli_fetch_assoc($ResultBooks)) : ?>
 
-                            <tr>
-                                <th scope="row"><?= $idAwal ?></th>
-                                <td><?= $data["judul"] ?></td>
-                                <td><?= $data["kategori"] ?></td>
-                                <td><?= $data["rating"] ?></td>
-                                <td><?= $data["isbn"] ?></td>
-                                <td><?= $data["penulis"] ?></td>
-                                <td>
-                                    <div class="row justify-content-start">
-                                        <div class="col-sm-auto">
-                                            <a href="edit.php?id=<?= $data["id"] ?>" class="btn btn-warning">Edit</a>
+                                <tr>
+                                    <th scope="row"><?= $idAwal ?></th>
+                                    <td><?= $data["judul"] ?></td>
+                                    <td><?= $data["kategori"] ?></td>
+                                    <td><?= $data["rating"] ?></td>
+                                    <td><?= $data["isbn"] ?></td>
+                                    <td><?= $data["penulis"] ?></td>
+                                    <td>
+                                        <div class="row justify-content-start g-2">
+                                            <div class="col-auto">
+                                                <a href="edit.php?id=<?= $data["id"] ?>" class="btn btn-warning">Edit</a>
+                                            </div>
+                                            <div class="col-auto">
+                                                <a href="hapus.php?id=<?= $data["id"] ?>" class="btn btn-danger">Hapus</a>
+                                            </div>
                                         </div>
-                                        <div class="col-sm-auto">
-                                            <a href="hapus.php?id=<?= $data["id"] ?>" class="btn btn-danger">Hapus</a>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
+                                    </td>
+                                </tr>
 
-                            <?php $idAwal++ ?>
-                        <?php endwhile ?>
+                                <?php $idAwal++ ?>
+                            <?php endwhile ?>
 
-                    <?php else : ?>
+                        <?php else : ?>
 
-                        <?= Alert("Buku tidak ditemukan", false) ?>
+                            <?= Alert("Buku tidak ditemukan", false) ?>
 
-                    <?php endif ?>
+                        <?php endif ?>
 
-                </tbody>
-            </table>
+                    </tbody>
+                </table>
+            </div>
         </section>
         <!-- LIST BUKU END -->
 
 
         <!-- DESCRIPTIONS TABLE START -->
-        <section class="container">
+        <section class="container-fluid-sm container-lg mt-4">
             <p class="text-lead text-primary">Jumlah Total Buku: <?= $TotalBuku ?></p>
         </section>
         <!-- DESCRIPTIONS TABLE END  -->
