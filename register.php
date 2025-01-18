@@ -56,7 +56,7 @@ if (isset($_POST["tombol-daftar"])) {
     <script src="assets/js/bootstrap.bundle.js"></script>
 </head>
 
-<body style="background-color: #ddd">
+<body style="background-color: #008F74;">
     <main>
         <?php
         include "layouts/navbar.php"
@@ -64,44 +64,50 @@ if (isset($_POST["tombol-daftar"])) {
 
 
         <!-- Login form start -->
-        <section class="container">
-            <div class="row d-lg-flex align-items-center justify-content-center mx-1" style="height: 100vh;">
-                <form style="background-color: #fff;" class="col-sm-12 col-md-10 col-lg-6 border border-dark-subtle rounded p-4" method="post">
+        <section class="vh-100" >
+            <section class="container py-5 h-100">
+                <div class="row d-flex justify-content-center align-items-center h-100">
+                    <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+                        <div class="card shadow-2-strong" style="border-radius: 1rem;">
+                            <div class="card-body p-4">
+                                <form method="post">
 
-                    <div class="mb-5">
-                        <h2 class="text-lead text-center" style="font-family: 'Times New Roman', Times, serif; font-size: 2.3em;">Daftar </h2>
-                        <p class="text-center text-lead">Selamat Datang</p>
-                    </div>
+                                    <div class="mb-5 text-center">
+                                        <h3>Sign up</h3>
+                                    </div>
 
-                    <div class="mb-4">
-                        <p class="text-danger"><i><?= isset($validation["username"]) ? $validation["username"] : null  ?></i></p>
-                        <label for="inputUsername" class="col-sm-2 col-form-label text-capitalize">username</label>
-                        <div class="col-sm-10 w-100">
-                            <input type="text" class="form-control" id="inputUsername" name="username" />
+                                    <div class="mb-4">
+                                        <?php $hasErrorUsername = isset($resultValidation["username"]) ?>
+                                        <p class="text-danger"><i><?= $hasErrorUsername ? $resultValidation["username"] : null  ?></i></p>
+                                        <div class="col-sm-10 w-100">
+                                            <input type="text" class="form-control <?= $hasErrorUsername ? 'is-invalid' : null ?>" name="username" placeholder="username" />
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-4">
+                                        <?php $hasErrorPassword = isset($resultValidation["password"]) ?>
+                                        <p class="text-danger"><i><?= $hasErrorPassword ? $resultValidation["password"] : null  ?></i></p>
+                                        <div class="col-sm-10 w-100">
+                                            <input class="form-control <?= $hasErrorPassword ? 'is-invalid' : null ?>" type="password" name="password" placeholder="password" />
+                                        </div>
+                                    </div>
+
+                                    <div class="mt-5">
+                                        <div class="col-auto">
+                                            <button type="submit" name="tombol-daftar" class="btn btn-success w-100">Daftar</button>
+                                        </div>
+                                        <div class="col-auto mt-4">
+                                            <p class="text-lead text-center">
+                                                Atau sudah ada akun, silakan <a class="text-link" href="login.php">Login</a>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
                     </div>
-
-                    <div class="mb-4">
-                        <p class="text-danger"><i><?= isset($validation["password"]) ? $validation["password"] : null  ?></i></p>
-                        <label for="inputPassword" class="col-sm-2 col-form-label text-capitalize">password</label>
-                        <div class="col-sm-10 w-100">
-                            <input class="form-control" type="password" name="password" id="inputPassword" />
-                        </div>
-                    </div>
-
-                    <div class="mt-5">
-                        <div class="col-auto">
-                            <button type="submit" name="tombol-daftar" class="btn btn-success w-100">Daftar</button>
-                        </div>
-
-                        <div class="col-auto mt-4">
-                            <p class="text-lead text-center">
-                                Atau sudah ada akun, silakan <a class="text-link" href="login.php">Login</a>
-                            </p>
-                        </div>
-                    </div>
-                </form>
-            </div>
+                </div>
+            </section>
         </section>
         <!-- Login form end -->
 

@@ -1,4 +1,5 @@
 <?php
+session_start();
 
 require_once "models/getBooks.php";
 require_once "models/updateBooks.php";
@@ -6,7 +7,13 @@ require_once "validations/validationForm.php";
 require_once "utils/parserInt.php";
 require_once "utils/alert.php";
 require_once "helpers/inputSanitizer.php";
+require_once "helpers/auth.php";
 
+
+// Cek apakah user sudah login
+if (!Logged_in_Helper()) {
+    header("Location: login.php");
+}
 
 // ambil id di param
 $idBukuRaw = (isset($_GET["id"])) ? htmlspecialchars($_GET["id"]) : null;

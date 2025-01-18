@@ -1,12 +1,20 @@
 <?php
+session_start();
 
 require_once "models/getBooks.php";
 require_once "utils/alert.php";
 require_once "helpers/inputSanitizer.php";
 require_once "helpers/search.php";
+require_once "helpers/auth.php";
+
+
+// Cek apakah user sudah login
+if (!Logged_in_Helper()) {
+    header("Location: login.php");
+}
+
 
 $ResultBooks = GetAllBooks();
-
 
 // Jika tombol cari ditekan 
 if (isset($_POST["tombol-cari"])) {
@@ -43,8 +51,13 @@ $TotalBuku = (isset($ResultBooks)) ? mysqli_num_rows($ResultBooks) : 0;
         ?>
         <!-- HERO SECTION END -->
 
+
+
         <!-- ACTION BAR START -->
         <section class="container-fluid-sm container-lg mt-5">
+            <p class="text-lead">user: <?= $_SESSION["username"] ?></p>
+            <p class="text-lead">id: <?= $_SESSION["id"] ?></p>
+
             <div class="row justify-content-around g-3">
                 <div class="col-sm-12 col-md-7 order-sm-1 order-md-0 ">
                     <a href="tambah.php" class="btn btn-primary">+ Tambah</a>

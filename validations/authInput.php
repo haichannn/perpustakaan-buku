@@ -11,7 +11,7 @@ class ValidationAuthForms
         $this->password = $password;
     }
 
-    function ValidationRegister()
+    function ValidationRegister(): array
     {
         $errors = [];
 
@@ -39,4 +39,19 @@ class ValidationAuthForms
 
         return $errors;
     }
+
+    function ValidationLogin(): array
+    {
+        $errors = [];
+        
+        if (empty($this->username)) {
+            $errors["username"] = "username tidak boleh kosong";
+        }
+
+        if (empty($this->password)) {
+            $errors["password"] = "password tidak boleh kosong";
+        }
+
+        return $errors;
+     }
 }
