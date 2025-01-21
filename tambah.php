@@ -1,10 +1,19 @@
 <?php
+session_start();
 
 require_once "models/insertBooks.php";
 require_once "utils/parserInt.php";
 require_once "utils/alert.php";
 require_once "validations/validationForm.php";
 require_once "helpers/inputSanitizer.php";
+require_once "helpers/auth.php";
+
+
+// Cek apakah user sudah login
+if (!Logged_in_Helper()) {
+    header("Location: login.php");
+}
+
 
 // jika tombol tambah di tekan 
 if (isset($_POST["tombol-tambah"])) {

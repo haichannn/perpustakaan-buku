@@ -1,10 +1,18 @@
 <?php
+session_start();
 
 require_once "models/deleteBooks.php";
 require_once "models/getBooks.php";
 require_once "utils/parserInt.php";
 require_once "utils/alert.php";
 require_once "helpers/inputSanitizer.php";
+require_once "helpers/auth.php";
+
+
+// Cek apakah user sudah login
+if (!Logged_in_Helper()) {
+    header("Location: login.php");
+}
 
 $idBukuRaw = (isset($_GET["id"])) ? InputSanitize($_GET)["id"] : null;
 
