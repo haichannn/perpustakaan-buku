@@ -55,9 +55,6 @@ $TotalBuku = (isset($ResultBooks)) ? mysqli_num_rows($ResultBooks) : 0;
 
         <!-- ACTION BAR START -->
         <section class="container-fluid-sm container-lg mt-5">
-            <p class="text-lead">user: <?= $_SESSION["username"] ?></p>
-            <p class="text-lead">id: <?= $_SESSION["id"] ?></p>
-
             <div class="row justify-content-around g-3">
                 <div class="col-sm-12 col-md-7 order-sm-1 order-md-0 ">
                     <a href="tambah.php" class="btn btn-primary">+ Tambah</a>

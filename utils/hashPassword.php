@@ -7,6 +7,5 @@
  **/
 
 function HashPasswordUtil(string $passwordInput) {
-    $hashPass = password_hash($passwordInput, PASSWORD_BCRYPT);
-    return $hashPass;
+    return password_hash($passwordInput, PASSWORD_BCRYPT);
 }

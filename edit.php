@@ -44,28 +44,29 @@ if (is_null($resultGetBook)) {
 // jika tombol edit di tekan
 if (isset($_POST["tombol-edit"])) {
     $resultSanitizerInput = InputSanitize($_POST);
-
+    
     $judulBook = $resultSanitizerInput["judul"];
     $kategoriBook = $resultSanitizerInput["kategori"];
     $ratingBook = $resultSanitizerInput["rating"];
     $isbnBook = $resultSanitizerInput["isbn"];
     $penulisBook = $resultSanitizerInput["penulis"];
-
+    
     $resultRatingParse = ParseStrToInt($ratingBook);
-
+    
     // validasi field forms edit
     $validationForm = new ValidationForms($judulBook, $kategoriBook, $resultRatingParse, $isbnBook, $penulisBook);
     $validation = $validationForm->Validation();
 
-
+    
     // jika validasi form tidak ada error
     if (count($validation) == 0) {
         $resultUpdateBook = UpdateBook($judulBook, $kategoriBook, $ratingBook, $isbnBook, $penulisBook, $idBuku);
-
+        $messages = [];
+        
         // jika update buku berhasil 
         if ($resultUpdateBook == 1) {
-            echo Alert("Buku berhasil di edit", true);
-
+            $messages = ["message" => "Buku berhasil di edit", "condition" => true];
+            
             echo "
                     <script>
                         setTimeout(() => {
@@ -73,18 +74,11 @@ if (isset($_POST["tombol-edit"])) {
                         }, 1200);
                     </script>
                  ";
-        } else if ($resultUpdateBook == 0) {
-            echo Alert("Tidak ada perubahan di buku", true);
-        } else {
-            echo Alert("Buku gagal di edit", false);
         }
     }
 }
 
 ?>
-
-
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -120,6 +114,7 @@ if (isset($_POST["tombol-edit"])) {
 
                         <div class="mb-4 ">
                             <h2 class="fs-2 fw-normal">Mengedit Buku</h2>
+                            <?= (isset($messages["message"])) ? Alert($messages["message"], $messages["condition"]) : null; ?>
                             <p class="text-lead"><i>"<?= $resultGetBook["judul"] ?>"</i></p>
                         </div>
 

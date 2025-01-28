@@ -12,12 +12,12 @@ require_once "././models/users/insertToken.php";
 
 function SaveCookies(int $userID, string $username)
 {
-
     $dataToken = hash("sha256", $username);
-    $expiresTimeCookies = time() + 60 * 60 * 24 * 7; // 1 minggu
+    $timeExpires = 60 * 60 * 24 * 7; // 1 minggu
+    $expiresTimeCookie = time() + $timeExpires; 
 
-    setcookie("idUser", $userID,  $expiresTimeCookies);
-    setcookie("token", $dataToken,  $expiresTimeCookies);
+    setcookie("idUser", $userID,  $expiresTimeCookie);
+    setcookie("token", $dataToken,  $expiresTimeCookie);
 
     // simpan token ke database
     return InsertTokenUser($userID, $dataToken);

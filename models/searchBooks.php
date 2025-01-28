@@ -20,8 +20,6 @@ function SearchBooks(string $keywordSearch)
                         isbn LIKE '%$keywordSearch%' 
                       ";
 
-    $searchQuery = mysqli_query($koneksiDB, $sqlSearchBooks);
-    return $searchQuery;
-    
+    return mysqli_query($koneksiDB, $sqlSearchBooks);
     mysqli_close($koneksiDB);
 }

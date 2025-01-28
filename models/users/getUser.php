@@ -13,10 +13,8 @@ function GetUserByUsername(string $usernameInput)
     global $koneksiDB;
     
     $sqlGetUserByUsername = "SELECT id, username, password FROM tb_users WHERE username = '$usernameInput'";
-    $resultSql = mysqli_query($koneksiDB, $sqlGetUserByUsername);
-    $resultRows = mysqli_fetch_assoc($resultSql);
-    return $resultRows;
-    
+    $resultGetUsername = mysqli_query($koneksiDB, $sqlGetUserByUsername);
+    return mysqli_fetch_assoc($resultGetUsername);
     mysqli_close($koneksiDB);
 
 }

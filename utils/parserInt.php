@@ -9,10 +9,9 @@
  * @return int
  * 
  **/
-function ParseStrToInt(string $dataStr): int
+function ParseStrToInt(string $dataString): int
 {
-    $resultParse = intval($dataStr);
-    return $resultParse;
+    return intval($dataString);
 }
 
 ?>

@@ -8,12 +8,10 @@ require_once "validations/validationForm.php";
 require_once "helpers/inputSanitizer.php";
 require_once "helpers/auth.php";
 
-
 // Cek apakah user sudah login
 if (!Logged_in_Helper()) {
     header("Location: login.php");
 }
-
 
 // jika tombol tambah di tekan 
 if (isset($_POST["tombol-tambah"])) {
@@ -34,18 +32,12 @@ if (isset($_POST["tombol-tambah"])) {
     // jika form tidak ada error
     if (count($validation) == 0) {
         $resultInsertBook = InsertBook($judulBook, $kategoriBook, $resultRatingParse, $isbnBook, $penulisBook);
-
-        // jika InsertBook Gagal Disimpan 
-        if ($resultInsertBook == 0) {
-            echo Alert("Buku gagal disimpan", false);
-        } else {
-            echo Alert("Buku berhasil disimpan", true);
-        }
+        $messages = [];
+        $messages = $resultInsertBook == 0 ? ["message" => "Buku sudah terdaftar", "condition" => false] : ["message" => "Buku berhasil disimpan", "condition" => true];
     }
 }
 
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -66,21 +58,20 @@ if (isset($_POST["tombol-tambah"])) {
         ?>
 
         <section class="container-fluid">
-
             <!-- HERO SECTION START -->
             <?php
             include "layouts/hero-section.php";
             ?>
             <!-- HERO SECTION END -->
 
-
             <!-- TAMBAH BUKU START -->
             <section class="container mt-5">
                 <div class="row justify-content-center ">
                     <form class="col-sm-12 col-md-10 col-lg-6 border border-dark-subtle rounded p-4" method="post" action="">
 
-                        <div class="mb-5">
+                        <div class="mb-3">
                             <h2 class="fs-2 fw-normal">Tambah Buku</h2>
+                            <?= (isset($messages["message"])) ? Alert($messages["message"], $messages["condition"]) : null; ?>
                         </div>
 
                         <div class="row mb-3">
@@ -135,7 +126,6 @@ if (isset($_POST["tombol-tambah"])) {
                 </div>
             </section>
             <!-- TAMBAH BUKU END -->
-
         </section>
     </main>
 </body>
